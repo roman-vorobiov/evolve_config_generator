@@ -67,6 +67,7 @@ with SettingCurrent('prestigeType') == 'bioseed':
     with BuildingUnlocked('space-star_dock') == False:
         config[auto_build('city-biolab')] = True
 
+    # Notice that you don't need to add ` == True` as it is implied for boolean expressions
     with ResearchComplete('tech-quantum_manufacturing'):
         config[auto_build('city-biolab')] = False
 ```
@@ -84,8 +85,17 @@ with (SettingCurrent('prestigeType') == 'bioseed') & ResearchComplete('tech-quan
     config[auto_build('city-biolab')] = False
 ```
 
-Since python does not allow to override logical `and`, `or` and `not`, the next best thing is arithmetic operators. Be careful, however, as they have different precedence than their logical counterparts - just use parentheses if unsure.
+Since python does not allow overriding logical `and`, `or` and `not` operators, the next best thing is their arithmetic counterparts. Be careful, however, as they have different precedence than the logical ones:
 
+```python
+SettingCurrent('prestigeType') == 'bioseed' | ResearchComplete('tech-quantum_manufacturing')
+
+# same as
+
+SettingCurrent('prestigeType') == ('bioseed' | ResearchComplete('tech-quantum_manufacturing'))
+```
+
+Use parentheses if unsure.
 
 You can also assign these expressions directly, which is translated into an `A?B` override:
 
@@ -173,6 +183,18 @@ SettingCurrent('prestigeType') == any_of('mad', 'bioseed', 'whitehole')
 
 any_of(ResourceDemanded('Infernite'), ResourceDemanded(('Graphene'))
 any_of(SettingCurrent('prestigeType') == 'mad', SettingCurrent('prestigeType') == 'bioseed', SettingCurrent('prestigeType') == 'whitehole')
+```
+
+Because arithmetics are not natively supported, they are converted to the corresponding eval:
+
+```python
+ResourceRatio('Coal') * 10
+ResourceRatio('Coal') * ResourceRatio('Oil')
+
+# same as
+
+Eval('checkTypes.ResourceRatio.fn("Coal") * 10')
+Eval('checkTypes.ResourceRatio.fn("Coal") * checkTypes.ResourceRatio.fn("Oil")')
 ```
 
 To add a trigger use the `add_trigger` function (see `utils/trigger.py`):

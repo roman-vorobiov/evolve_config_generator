@@ -67,6 +67,13 @@ def test_compose_unary_with_unary():
     )
 
 
+def test_compose_arithmetic_unary_with_unary():
+    compare(
+        DummyNumeric(123) * 456,
+        Eval('checkTypes.DummyNumeric.fn(123) * 456')
+    )
+
+
 def test_compose_unary_with_binary():
     compare(
         DummyBoolean(123) & (DummyNumeric(456) > 0),

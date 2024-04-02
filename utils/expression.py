@@ -79,6 +79,20 @@ class NumericExpression(Expression):
     def __ge__(self, other):
         return self.compose_with(other, '>=')
 
+    # arithmetic operations are not natively supported - convert them to eval
+
+    def __add__(self, other):
+        return unary_expression(self.compose_with(other, '+'))
+
+    def __sub__(self, other):
+        return unary_expression(self.compose_with(other, '-'))
+
+    def __mul__(self, other):
+        return unary_expression(self.compose_with(other, '*'))
+
+    def __truediv__(self, other):
+        return unary_expression(self.compose_with(other, '/'))
+
 
 class AnyExpression(BooleanExpression, NumericExpression):
     pass
