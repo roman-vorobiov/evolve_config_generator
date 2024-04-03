@@ -6,11 +6,11 @@ import argparse
 
 def main(args):
     if args.base is not None:
-        config = load_config(args.base)
+        config = Config(load_config(args.base))
     else:
-        config = { 'triggers': [], 'overrides': {}, 'researchIgnore': [] }
+        config = Config({ 'triggers': [], 'overrides': {}, 'researchIgnore': [] })
 
-    generate_config(Config(config))
+    generate_config(config)
 
     if args.print:
         print(dump_config(config, args.pretty))
