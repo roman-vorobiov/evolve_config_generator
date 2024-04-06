@@ -11,6 +11,8 @@ class BuildingAffordable(UnaryExpression, BooleanExpression): pass
 
 class BuildingUnlocked(UnaryExpression, BooleanExpression): pass
 
+class BuildingCount(UnaryExpression, NumericExpression): pass
+
 class ProjectCount(UnaryExpression, NumericExpression): pass
 
 class RaceId(UnaryExpression): pass
@@ -35,7 +37,9 @@ class SettingCurrent(UnaryExpression, AnyExpression): pass
 
 class TraitLevel(UnaryExpression, NumericExpression): pass
 
-class Challenge(UnaryExpression): pass
+class Challenge(UnaryExpression, BooleanExpression): pass
+
+class ResetType(UnaryExpression, BooleanExpression): pass
 
 
 def add_override(config, target, value, condition):

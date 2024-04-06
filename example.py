@@ -111,7 +111,7 @@ def generate_config(config):
 
     # Governor
     config['govGovernor'] = {
-        'entrepreneur': SettingCurrent('prestigeType') == 'mad',
+        'entrepreneur': ResetType('mad'),
         'spiritual': '*'
     }
 
@@ -202,7 +202,7 @@ def generate_config(config):
     with Challenge('banana'):
         config[auto_arpa('monument')] = ProjectCount(project('monument')) < 50
 
-    with SettingCurrent('prestigeType') == 'bioseed':
+    with ResetType('bioseed'):
         config[arpa_max('stock_exchange')] = 10
         config[arpa_max('railway')] = 1
 
@@ -260,13 +260,13 @@ def generate_config(config):
     config[auto_build('space-propellant_depot')] = any_missions_unaffordable
     config[auto_build('space-gas_storage')] = any_missions_unaffordable
 
-    with SettingCurrent('prestigeType') == 'mad':
+    with ResetType('mad'):
         config[auto_build('city-hospital')] = False
         config[auto_build('city-boot_camp')] = False
         config[build_max('city-garrison')] = 20
         config[build_max('city-factory')] = 1
 
-    with SettingCurrent('prestigeType') == 'bioseed':
+    with ResetType('bioseed'):
         config[auto_build('city-hospital')] = False
         config[auto_build('city-boot_camp')] = False
         config[build_max('city-garrison')] = 26
@@ -294,10 +294,10 @@ def generate_config(config):
             config[auto_build('space-exotic_lab')] = False
             config[auto_build('space-observatory')] = False
 
-    with SettingCurrent('prestigeType') == 'whitehole':
+    with ResetType('whitehole'):
         config[build_max('space-red_mine')] = 10
         config[build_max('space-fabrication')] = 10
 
-    with SettingCurrent('prestigeType') == 'ascension':
+    with ResetType('ascension'):
         config[build_max('space-red_mine')] = 20
         config[build_max('space-fabrication')] = 20
